@@ -29,6 +29,7 @@ public class MindsPostAuthenticationSuccessHandler extends SimpleUrlAuthenticati
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		//handle(request, response, authentication);
+		log.info("Authentication successfull for user " + authentication.getName());
 		 super.onAuthenticationSuccess(request, response, authentication);
 	}
 
