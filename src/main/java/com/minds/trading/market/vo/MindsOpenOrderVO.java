@@ -1,10 +1,10 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 import java.math.BigDecimal;
 
 
-public class PoloniexOpenOrder
+public class MindsOpenOrderVO
 {
     public final String orderNumber;
     public final String type;
@@ -12,7 +12,7 @@ public class PoloniexOpenOrder
     public final BigDecimal amount;
     public final BigDecimal total;
 
-    public PoloniexOpenOrder(String orderNumber, String type, BigDecimal rate, BigDecimal amount, BigDecimal total)
+    public MindsOpenOrderVO(String orderNumber, String type, BigDecimal rate, BigDecimal amount, BigDecimal total)
     {
         this.orderNumber = orderNumber;
         this.type = type;

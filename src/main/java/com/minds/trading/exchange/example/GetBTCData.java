@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.minds.trading.exchange.MindsExchangeService;
-import com.minds.trading.exchange.model.poloniex.PoloniexChartData;
 import com.minds.trading.exchange.poloniex.PoloniexExchangeService;
+import com.minds.trading.market.vo.MindsChartDataVO;
 
 
 
@@ -49,8 +49,10 @@ public class GetBTCData
 
         MindsExchangeService service = new PoloniexExchangeService(tradingAPIKey, tradingAPISecret);
         Long yesterdayEpochSecond = ZonedDateTime.now(ZoneOffset.UTC).minusDays(1).toEpochSecond();
-        List<PoloniexChartData> btcDailyChartData = service.returnChartData(PoloniexExchangeService.USDT_BTC_CURRENCY_PAIR, PoloniexExchangeService.DAILY_TIME_PERIOD, yesterdayEpochSecond);
+        List<MindsChartDataVO> btcDailyChartData = service.returnChartData(PoloniexExchangeService.USDT_BTC_CURRENCY_PAIR, PoloniexExchangeService.DAILY_TIME_PERIOD, yesterdayEpochSecond);
         log.info(btcDailyChartData.toString());
+        log.info(service.returnFeeInfo().toString());
+        log.info(service.returnOpenOrders(MindsExchangeService.DGB_BTC_CURRENCY_PAIR).toString());
     }
 
     private Properties loadProperties(String propertiesFileName)

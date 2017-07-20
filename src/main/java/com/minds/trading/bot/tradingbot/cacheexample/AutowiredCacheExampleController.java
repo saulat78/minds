@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.minds.trading.bot.tradingbot.cache.CacheManager;
-import com.minds.trading.bot.tradingbot.cache.LocalCacheSubject;
+import com.minds.trading.market.cache.CacheManager;
+import com.minds.trading.market.cache.LocalCacheSubject;
 
 @Controller
 public class AutowiredCacheExampleController {

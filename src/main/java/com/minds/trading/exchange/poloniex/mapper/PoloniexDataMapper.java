@@ -9,13 +9,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-import com.minds.trading.exchange.model.poloniex.PoloniexChartData;
-import com.minds.trading.exchange.model.poloniex.PoloniexCompleteBalance;
-import com.minds.trading.exchange.model.poloniex.PoloniexFeeInfo;
-import com.minds.trading.exchange.model.poloniex.PoloniexOpenOrder;
-import com.minds.trading.exchange.model.poloniex.PoloniexOrderResult;
-import com.minds.trading.exchange.model.poloniex.PoloniexTicker;
-import com.minds.trading.exchange.model.poloniex.PoloniexTradeHistory;
+import com.minds.trading.market.vo.MindsChartDataVO;
+import com.minds.trading.market.vo.MindsCoinDataVO;
+import com.minds.trading.market.vo.MindsCompleteBalanceVO;
+import com.minds.trading.market.vo.MindsFeeInfoVO;
+import com.minds.trading.market.vo.MindsOpenOrderVO;
+import com.minds.trading.market.vo.MindsOrderResultVO;
+import com.minds.trading.market.vo.MindsTradeHistoryVO;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -40,15 +40,15 @@ public class PoloniexDataMapper
         }).create();
     }
 
-    public List<PoloniexChartData> mapChartData(String chartDataResult)
+    public List<MindsChartDataVO> mapChartData(String chartDataResult)
     {
-        PoloniexChartData[] chartDataResults = gson.fromJson(chartDataResult, PoloniexChartData[].class);
+        MindsChartDataVO[] chartDataResults = gson.fromJson(chartDataResult, MindsChartDataVO[].class);
         return Arrays.asList(chartDataResults);
     }
 
-    public PoloniexFeeInfo mapFeeInfo(String feeInfoResult)
+    public MindsFeeInfoVO mapFeeInfo(String feeInfoResult)
     {
-        PoloniexFeeInfo feeInfo = gson.fromJson(feeInfoResult, new TypeToken<PoloniexFeeInfo>()
+        MindsFeeInfoVO feeInfo = gson.fromJson(feeInfoResult, new TypeToken<MindsFeeInfoVO>()
         {
         }.getType());
 
@@ -57,9 +57,9 @@ public class PoloniexDataMapper
 
   
 
-    public PoloniexTicker mapTickerForCurrency(String currencyType, String tickerData)
+    public MindsCoinDataVO mapTickerForCurrency(String currencyType, String tickerData)
     {
-        Map<String, PoloniexTicker> tickerResults = gson.fromJson(tickerData, new TypeToken<Map<String, PoloniexTicker>>()
+        Map<String, MindsCoinDataVO> tickerResults = gson.fromJson(tickerData, new TypeToken<Map<String, MindsCoinDataVO>>()
         {
         }.getType());
         return tickerResults.get(currencyType);
@@ -67,31 +67,31 @@ public class PoloniexDataMapper
 
     public List<String> mapMarkets(String tickerData)
     {
-        Map<String, PoloniexTicker> tickerResults = gson.fromJson(tickerData, new TypeToken<Map<String, PoloniexTicker>>()
+        Map<String, MindsCoinDataVO> tickerResults = gson.fromJson(tickerData, new TypeToken<Map<String, MindsCoinDataVO>>()
         {
         }.getType());
         return new ArrayList<>(tickerResults.keySet());
     }
 
-    public PoloniexCompleteBalance mapCompleteBalanceResultForCurrency(String currencyType, String completeBalanceResults)
+    public MindsCompleteBalanceVO mapCompleteBalanceResultForCurrency(String currencyType, String completeBalanceResults)
     {
-        Map<String, PoloniexCompleteBalance> balanceResults = gson.fromJson(completeBalanceResults, new TypeToken<Map<String, PoloniexCompleteBalance>>()
+        Map<String, MindsCompleteBalanceVO> balanceResults = gson.fromJson(completeBalanceResults, new TypeToken<Map<String, MindsCompleteBalanceVO>>()
         {
         }.getType());
         return balanceResults.get(currencyType);
     }
 
-    public List<PoloniexOpenOrder> mapOpenOrders(String openOrdersResults)
+    public List<MindsOpenOrderVO> mapOpenOrders(String openOrdersResults)
     {
-        List<PoloniexOpenOrder> openOrders = gson.fromJson(openOrdersResults, new TypeToken<List<PoloniexOpenOrder>>()
+        List<MindsOpenOrderVO> openOrders = gson.fromJson(openOrdersResults, new TypeToken<List<MindsOpenOrderVO>>()
         {
         }.getType());
         return openOrders;
     }
 
-    public List<PoloniexTradeHistory> mapTradeHistory(String tradeHistoryResults)
+    public List<MindsTradeHistoryVO> mapTradeHistory(String tradeHistoryResults)
     {
-        List<PoloniexTradeHistory> tradeHistory = gson.fromJson(tradeHistoryResults, new TypeToken<List<PoloniexTradeHistory>>()
+        List<MindsTradeHistoryVO> tradeHistory = gson.fromJson(tradeHistoryResults, new TypeToken<List<MindsTradeHistoryVO>>()
         {
         }.getType());
         return tradeHistory;
@@ -103,9 +103,9 @@ public class PoloniexDataMapper
         return success == 1;
     }
 
-    public PoloniexOrderResult mapTradeOrder(String orderResult)
+    public MindsOrderResultVO mapTradeOrder(String orderResult)
     {
-        PoloniexOrderResult tradeOrderResult = gson.fromJson(orderResult, new TypeToken<PoloniexOrderResult>()
+        MindsOrderResultVO tradeOrderResult = gson.fromJson(orderResult, new TypeToken<MindsOrderResultVO>()
         {
         }.getType());
         return tradeOrderResult;

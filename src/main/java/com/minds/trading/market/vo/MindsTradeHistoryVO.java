@@ -1,11 +1,11 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
-public class PoloniexTradeHistory
+public class MindsTradeHistoryVO
 {
     public final Long globalTradeID;
     public final String tradeID;
@@ -18,7 +18,7 @@ public class PoloniexTradeHistory
     public final String type;
     public final String category;
 
-    public PoloniexTradeHistory(Long globalTradeID, String tradeID, LocalDateTime date, BigDecimal rate, BigDecimal amount, BigDecimal total, BigDecimal fee, String orderNumber, String type, String category)
+    public MindsTradeHistoryVO(Long globalTradeID, String tradeID, LocalDateTime date, BigDecimal rate, BigDecimal amount, BigDecimal total, BigDecimal fee, String orderNumber, String type, String category)
     {
         this.globalTradeID = globalTradeID;
         this.tradeID = tradeID;

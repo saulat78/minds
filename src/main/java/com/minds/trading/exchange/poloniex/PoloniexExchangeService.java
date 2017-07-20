@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 import com.minds.trading.exchange.MindsExchangeService;
 import com.minds.trading.exchange.PriceDataAPIClient;
 import com.minds.trading.exchange.TradingAPIClient;
-import com.minds.trading.exchange.model.poloniex.PoloniexChartData;
-import com.minds.trading.exchange.model.poloniex.PoloniexCompleteBalance;
-import com.minds.trading.exchange.model.poloniex.PoloniexFeeInfo;
-import com.minds.trading.exchange.model.poloniex.PoloniexOpenOrder;
-import com.minds.trading.exchange.model.poloniex.PoloniexOrderResult;
-import com.minds.trading.exchange.model.poloniex.PoloniexTicker;
-import com.minds.trading.exchange.model.poloniex.PoloniexTradeHistory;
 import com.minds.trading.exchange.poloniex.mapper.PoloniexDataMapper;
+import com.minds.trading.market.vo.MindsChartDataVO;
+import com.minds.trading.market.vo.MindsCoinDataVO;
+import com.minds.trading.market.vo.MindsCompleteBalanceVO;
+import com.minds.trading.market.vo.MindsFeeInfoVO;
+import com.minds.trading.market.vo.MindsOpenOrderVO;
+import com.minds.trading.market.vo.MindsOrderResultVO;
+import com.minds.trading.market.vo.MindsTradeHistoryVO;
 
 
 
@@ -54,10 +54,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return List of PoloniexChartData
      */
     @Override
-    public List<PoloniexChartData> returnChartData(String currencyPair, Long periodInSeconds, Long startEpochInSeconds)
+    public List<MindsChartDataVO> returnChartData(String currencyPair, Long periodInSeconds, Long startEpochInSeconds)
     {
         long start = System.currentTimeMillis();
-        List<PoloniexChartData> chartData = new ArrayList<PoloniexChartData>();
+        List<MindsChartDataVO> chartData = new ArrayList<MindsChartDataVO>();
         try
         {
             String chartDataResult = publicClient.getChartData(currencyPair, periodInSeconds, startEpochInSeconds);
@@ -66,7 +66,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-        	log.error("Error retrieving chart data for {} - {}", currencyPair, ex.getMessage());
+        	log.error("Error retrieving chart data for {}", currencyPair, ex);
         }
 
         return chartData;
@@ -80,10 +80,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return PoloniexTicker
      */
     @Override
-    public PoloniexTicker returnTicker(String currencyPair)
+    public MindsCoinDataVO returnTicker(String currencyPair)
     {
         long start = System.currentTimeMillis();
-        PoloniexTicker tickerResult = null;
+        MindsCoinDataVO tickerResult = null;
         try
         {
             String tickerData = publicClient.returnTicker();
@@ -92,7 +92,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-            log.error("Error retrieving ticker for {} - {}", currencyPair, ex.getMessage());
+            log.error("Error retrieving ticker for {} ", currencyPair, ex);
         }
 
         return tickerResult;
@@ -111,7 +111,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-            log.error("Error retrieving all markets - {}", ex.getMessage());
+            log.error("Error retrieving all markets -", ex);
         }
 
         return allMarkets;
@@ -125,10 +125,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return PoloniexCompleteBalance
      */
     @Override
-    public PoloniexCompleteBalance returnBalance(String currencyType)
+    public MindsCompleteBalanceVO returnBalance(String currencyType)
     {
         long start = System.currentTimeMillis();
-        PoloniexCompleteBalance balance = null;
+        MindsCompleteBalanceVO balance = null;
         try
         {
             String completeBalancesResult = tradingClient.returnCompleteBalances();
@@ -137,7 +137,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-            log.error("Error retrieving complete balance for {} - {}", currencyType, ex.getMessage());
+            log.error("Error retrieving complete balance for {}", currencyType, ex);
         }
 
         return balance;
@@ -150,10 +150,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return PoloniexFeeInfo
      */
     @Override
-    public PoloniexFeeInfo returnFeeInfo()
+    public MindsFeeInfoVO returnFeeInfo()
     {
         long start = System.currentTimeMillis();
-        PoloniexFeeInfo feeInfo = null;
+        MindsFeeInfoVO feeInfo = null;
         try
         {
             String feeInfoResult = tradingClient.returnFeeInfo();
@@ -162,7 +162,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-            log.error("Error retrieving fee info - {}", ex.getMessage());
+            log.error("Error retrieving fee info ", ex);
         }
 
         return feeInfo;
@@ -178,10 +178,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return List of PoloniexOpenOrder
      */
     @Override
-    public List<PoloniexOpenOrder> returnOpenOrders(String currencyPair)
+    public List<MindsOpenOrderVO> returnOpenOrders(String currencyPair)
     {
         long start = System.currentTimeMillis();
-        List<PoloniexOpenOrder> openOrders = new ArrayList<PoloniexOpenOrder>();
+        List<MindsOpenOrderVO> openOrders = new ArrayList<MindsOpenOrderVO>();
         try
         {
             String openOrdersData = tradingClient.returnOpenOrders(currencyPair);
@@ -191,7 +191,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         }
         catch (Exception ex)
         {
-            log.error("Error retrieving open orders for {} - {}", currencyPair, ex.getMessage());
+            log.error("Error retrieving open orders for {}", currencyPair, ex);
         }
 
         return openOrders;
@@ -205,10 +205,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return List of PoloniexTradeHistory
      */
     @Override
-    public List<PoloniexTradeHistory> returnTradeHistory(String currencyPair)
+    public List<MindsTradeHistoryVO> returnTradeHistory(String currencyPair)
     {
         long start = System.currentTimeMillis();
-        List<PoloniexTradeHistory> tradeHistory = new ArrayList<PoloniexTradeHistory>();
+        List<MindsTradeHistoryVO> tradeHistory = new ArrayList<MindsTradeHistoryVO>();
         try
         {
             String tradeHistoryData = tradingClient.returnTradeHistory(currencyPair);
@@ -237,10 +237,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return PoloniexOrderResult
      */
     @Override
-    public PoloniexOrderResult sell(String currencyPair, BigDecimal sellPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly)
+    public MindsOrderResultVO sell(String currencyPair, BigDecimal sellPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly)
     {
         long start = System.currentTimeMillis();
-        PoloniexOrderResult orderResult = null;
+        MindsOrderResultVO orderResult = null;
         try
         {
             String sellTradeResult = tradingClient.sell(currencyPair, sellPrice, amount, fillOrKill, immediateOrCancel, postOnly);
@@ -268,10 +268,10 @@ public class PoloniexExchangeService implements MindsExchangeService
      * @return PoloniexOrderResult
      */
     @Override
-    public PoloniexOrderResult buy(String currencyPair, BigDecimal buyPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly)
+    public MindsOrderResultVO buy(String currencyPair, BigDecimal buyPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly)
     {
         long start = System.currentTimeMillis();
-        PoloniexOrderResult orderResult = null;
+        MindsOrderResultVO orderResult = null;
         try
         {
             String buyTradeResult = tradingClient.buy(currencyPair, buyPrice, amount, fillOrKill, immediateOrCancel, postOnly);
@@ -314,10 +314,10 @@ public class PoloniexExchangeService implements MindsExchangeService
     }
 
     @Override
-    public PoloniexOrderResult moveOrder(String orderNumber, BigDecimal rate, Boolean immediateOrCancel, Boolean postOnly)
+    public MindsOrderResultVO moveOrder(String orderNumber, BigDecimal rate, Boolean immediateOrCancel, Boolean postOnly)
     {
         long start = System.currentTimeMillis();
-        PoloniexOrderResult orderResult = null;
+        MindsOrderResultVO orderResult = null;
         try
         {
             String moveOrderResult = tradingClient.moveOrder(orderNumber, rate);

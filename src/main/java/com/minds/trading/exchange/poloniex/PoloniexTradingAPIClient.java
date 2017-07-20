@@ -161,8 +161,9 @@ public class PoloniexTradingAPIClient implements TradingAPIClient
             List<NameValuePair> httpHeaders = new ArrayList<>();
             httpHeaders.add(new BasicNameValuePair("Key", apiKey));
             httpHeaders.add(new BasicNameValuePair("Sign", signature));
-
-            return client.postHttp(TRADING_URL, postParams, httpHeaders);
+            String resp = client.postHttp(TRADING_URL, postParams, httpHeaders);
+            log.debug("returnTradingAPICommandResults-->" + TRADING_URL + " params:" + postParams + " resp: " + resp);
+            return resp;
         }
         catch (IOException | NoSuchAlgorithmException | InvalidKeyException ex)
         {

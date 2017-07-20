@@ -3,19 +3,22 @@ package com.minds.trading.exchange;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.minds.trading.exchange.model.poloniex.PoloniexChartData;
-import com.minds.trading.exchange.model.poloniex.PoloniexCompleteBalance;
-import com.minds.trading.exchange.model.poloniex.PoloniexFeeInfo;
-import com.minds.trading.exchange.model.poloniex.PoloniexOpenOrder;
-import com.minds.trading.exchange.model.poloniex.PoloniexOrderResult;
-import com.minds.trading.exchange.model.poloniex.PoloniexTicker;
-import com.minds.trading.exchange.model.poloniex.PoloniexTradeHistory;
+import com.minds.trading.market.vo.MindsChartDataVO;
+import com.minds.trading.market.vo.MindsCoinDataVO;
+import com.minds.trading.market.vo.MindsCompleteBalanceVO;
+import com.minds.trading.market.vo.MindsFeeInfoVO;
+import com.minds.trading.market.vo.MindsOpenOrderVO;
+import com.minds.trading.market.vo.MindsOrderResultVO;
+import com.minds.trading.market.vo.MindsTradeHistoryVO;
 
 
 
 public interface MindsExchangeService 
 {
     public final static String USDT_BTC_CURRENCY_PAIR = "USDT_BTC";
+    public final static String ALL = "all";
+    
+    public final static String DGB_BTC_CURRENCY_PAIR = "BTC_DGB";
     public final static String USDT_ETH_CURRENCY_PAIR = "USDT_ETH";
     public final static String BTC_CURRENCY_TYPE = "BTC";
     public final static String ETH_CURRENCY_TYPE = "ETH";
@@ -26,27 +29,27 @@ public interface MindsExchangeService
     public final static Long DAILY_TIME_PERIOD = 86_400L;
     public final static Long LONG_LONG_AGO = 1_439_000_000L;
     
-    public List<PoloniexChartData> returnChartData(String currencyPair, Long periodInSeconds, Long startEpochInSeconds);
+    public List<MindsChartDataVO> returnChartData(String currencyPair, Long periodInSeconds, Long startEpochInSeconds);
     
-    public PoloniexTicker returnTicker(String currencyName);
+    public MindsCoinDataVO returnTicker(String currencyName);
     
     public List<String> returnAllMarkets();
 
-    public PoloniexCompleteBalance returnBalance(String currencyName);
+    public MindsCompleteBalanceVO returnBalance(String currencyName);
 
-    public PoloniexFeeInfo returnFeeInfo();
+    public MindsFeeInfoVO returnFeeInfo();
     
-    public List<PoloniexOpenOrder> returnOpenOrders(String currencyName);
+    public List<MindsOpenOrderVO> returnOpenOrders(String currencyName);
     
-    public List<PoloniexTradeHistory> returnTradeHistory(String currencyPair);
+    public List<MindsTradeHistoryVO> returnTradeHistory(String currencyPair);
     
     public boolean cancelOrder(String orderNumber);
     
-    public PoloniexOrderResult moveOrder(String orderNumber, BigDecimal rate, Boolean immediateOrCancel, Boolean postOnly);
+    public MindsOrderResultVO moveOrder(String orderNumber, BigDecimal rate, Boolean immediateOrCancel, Boolean postOnly);
     
-    public PoloniexOrderResult sell(String currencyPair, BigDecimal sellPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly);
+    public MindsOrderResultVO sell(String currencyPair, BigDecimal sellPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly);
 
-    public PoloniexOrderResult buy(String currencyPair, BigDecimal buyPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly);
+    public MindsOrderResultVO buy(String currencyPair, BigDecimal buyPrice, BigDecimal amount, boolean fillOrKill, boolean immediateOrCancel, boolean postOnly);
 
 
 

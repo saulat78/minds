@@ -1,10 +1,10 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 import java.math.BigDecimal;
 
 
-public class PoloniexTicker
+public class MindsCoinDataVO
 {
     public final BigDecimal last;
     public final BigDecimal lowestAsk;
@@ -13,7 +13,7 @@ public class PoloniexTicker
     public final BigDecimal baseVolume;
     public final BigDecimal quoteVolume;
 
-    public PoloniexTicker(BigDecimal last, BigDecimal lowestAsk, BigDecimal highestBid, BigDecimal percentChange, BigDecimal baseVolume, BigDecimal quoteVolume)
+    public MindsCoinDataVO(BigDecimal last, BigDecimal lowestAsk, BigDecimal highestBid, BigDecimal percentChange, BigDecimal baseVolume, BigDecimal quoteVolume)
     {
         this.last = last;
         this.lowestAsk = lowestAsk;

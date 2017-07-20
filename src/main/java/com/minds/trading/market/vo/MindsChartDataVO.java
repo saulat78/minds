@@ -1,8 +1,8 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 
-public class PoloniexChartData
+public class MindsChartDataVO
 {
     public final String date;
     public final String high;
@@ -13,7 +13,7 @@ public class PoloniexChartData
     public final String quoteVolume;
     public final String weightedAverage;
 
-    public PoloniexChartData(String date, String high, String low, String open, String close, String volume, String quoteVolume, String weightedAverage)
+    public MindsChartDataVO(String date, String high, String low, String open, String close, String volume, String quoteVolume, String weightedAverage)
     {
         this.date = date;
         this.high = high;

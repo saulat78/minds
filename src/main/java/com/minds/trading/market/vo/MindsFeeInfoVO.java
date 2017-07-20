@@ -1,17 +1,17 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 import java.math.BigDecimal;
 
 
-public class PoloniexFeeInfo
+public class MindsFeeInfoVO
 {
     public final BigDecimal makerFee;
     public final BigDecimal takerFee;
     public final BigDecimal thirtyDayVolume;
     public final BigDecimal nextTier;
 
-    public PoloniexFeeInfo(BigDecimal makerFee, BigDecimal takerFee, BigDecimal thirtyDayVolume, BigDecimal nextTier)
+    public MindsFeeInfoVO(BigDecimal makerFee, BigDecimal takerFee, BigDecimal thirtyDayVolume, BigDecimal nextTier)
     {
         this.makerFee = makerFee;
         this.takerFee = takerFee;

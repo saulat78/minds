@@ -1,4 +1,4 @@
-package com.minds.trading.bot.tradingbot.cache;
+package com.minds.trading.market.cache;
 
 import java.util.Set;
 

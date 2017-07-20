@@ -1,16 +1,16 @@
-package com.minds.trading.exchange.model.poloniex;
+package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
 import java.util.List;
 
 
-public class PoloniexOrderResult
+public class MindsOrderResultVO
 {
     public final Long orderNumber;
     public final String error;
-    public final List<PoloniexTradeHistory> resultingTrades;
+    public final List<MindsTradeHistoryVO> resultingTrades;
 
-    public PoloniexOrderResult(Long orderNumber, List<PoloniexTradeHistory> resultingTrades, String error)
+    public MindsOrderResultVO(Long orderNumber, List<MindsTradeHistoryVO> resultingTrades, String error)
     {
         this.orderNumber = orderNumber;
         this.resultingTrades = resultingTrades;

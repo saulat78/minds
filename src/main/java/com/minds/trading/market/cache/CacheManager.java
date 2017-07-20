@@ -1,4 +1,4 @@
-package com.minds.trading.bot.tradingbot.cache;
+package com.minds.trading.market.cache;
 
 
 public interface CacheManager<S, K, V> {
