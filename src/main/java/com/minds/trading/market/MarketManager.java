@@ -1,5 +1,6 @@
 package com.minds.trading.market;
 
+import java.math.BigDecimal;
 
 /**
  * 
@@ -8,8 +9,9 @@ package com.minds.trading.market;
  * store it in the Cache and return the data when requested
  *
  */
-public interface MarketManager {
+public interface MarketManager
+{
 
-	
+  public BigDecimal getLastPrice(String exchange, String currencyPair);
 	
 }
