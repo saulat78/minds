@@ -20,7 +20,7 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	private Cache<String,LinkedList> lastHourCoinPrice;
 	private Cache<String,BigDecimal> currentCoinPrice;
 
-	
+	private static MindsMarketDatastore instance=null;
 	
 	private MindsMarketDatastoreImpl()
 	{
@@ -28,6 +28,13 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	}
 
 
+	public synchronized static MindsMarketDatastore getInstance()
+	{
+		if(instance == null)
+			instance = new MindsMarketDatastoreImpl();
+		
+		return instance;
+	}
 
 	public void init()
 	{
