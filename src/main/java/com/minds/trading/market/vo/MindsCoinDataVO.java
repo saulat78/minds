@@ -28,4 +28,10 @@ public class MindsCoinDataVO
     {
         return new Gson().toJson(this);
     }
+
+	public BigDecimal getLast() {
+		return last;
+	}
+    
+    
 }
