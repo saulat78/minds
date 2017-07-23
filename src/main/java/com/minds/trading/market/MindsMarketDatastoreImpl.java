@@ -1,24 +1,18 @@
 package com.minds.trading.market;
-
-import static org.ehcache.config.builders.CacheManagerBuilder.newCacheManager;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ehcache.Cache;
-import org.ehcache.CacheManager;
-import org.ehcache.config.Configuration;
-import org.ehcache.xml.XmlConfiguration;
-
-
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import com.minds.trading.market.vo.MindsCoinDataVO;
 
 public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 {
-	private Cache<String,LinkedList> lastHourCoinPrice;
-	private Cache<String,BigDecimal> currentCoinPrice;
+	private Cache lastHourCoinPrice;
+	private Cache currentCoinPrice;
 
 	private static MindsMarketDatastore instance=null;
 	
@@ -38,13 +32,12 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 
 	public void init()
 	{
-		 Configuration xmlConfig = new XmlConfiguration(MindsMarketDatastoreImpl.class.getResource("/ehcache.xml"));
-		    try (CacheManager cacheManager = newCacheManager(xmlConfig))
-		    {
-		      cacheManager.init();
-		      lastHourCoinPrice = cacheManager.getCache("marketDataCache", String.class, LinkedList.class);
-		      currentCoinPrice = cacheManager.getCache("currentPriceCache", String.class, BigDecimal.class);
-		    }
+		CacheManager cm = CacheManager.newInstance();
+
+		//2. Get a cache called "cache1", declared in ehcache.xml
+		 lastHourCoinPrice = cm.getCache("marketDataCache");
+		 currentCoinPrice = cm.getCache("currentPriceCache");
+	
     }
 	
 	
@@ -54,15 +47,18 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	@Override
 	public void updatePrice(String currencyPair, MindsCoinDataVO vo)
 	{
-		this.currentCoinPrice.put(currencyPair, vo.last);
-		LinkedList<MindsCoinDataVO> list =  lastHourCoinPrice.get(currencyPair);
+		this.currentCoinPrice.put(new Element(currencyPair, vo.last));
+		
+	/*	Element ele = lastHourCoinPrice.get(currencyPair);
+		
+		LinkedList<MindsCoinDataVO> list = (LinkedList<MindsCoinDataVO>) (ele == null ? null : ele.getObjectValue());
 		if(list == null)
 		{
 			list = new LinkedList<MindsCoinDataVO>();
 		}
 		list.addFirst(vo);
-		this.lastHourCoinPrice.put(currencyPair, list);
-		
+		this.lastHourCoinPrice.put(new Element(currencyPair, list));
+		*/
 	}
 	
 	/* (non-Javadoc)
@@ -71,7 +67,8 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	@Override
 	public BigDecimal getCurrentPrice(String currencyPair)
 	{
-		return this.currentCoinPrice.get(currencyPair);
+		Element ele = this.currentCoinPrice.get(currencyPair);
+		return (BigDecimal) (ele == null ? null : ele.getObjectValue());
 	}
 	
 	
@@ -81,7 +78,8 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	@Override
 	public List<BigDecimal> getPreviousPrice(String currencyPair, int last)
 	{
-		List<MindsCoinDataVO> list =  lastHourCoinPrice.get(currencyPair);
+		Element ele = lastHourCoinPrice.get(currencyPair);
+		List<MindsCoinDataVO> list =  (LinkedList<MindsCoinDataVO>) (ele == null ? null : ele.getObjectValue());
 		if(list == null)
 			return null;
 		List<BigDecimal> toReturn = new ArrayList<>(3);
@@ -100,7 +98,8 @@ public class MindsMarketDatastoreImpl implements  MindsMarketDatastore
 	@Override
 	public BigDecimal getMovingAvg(String currencyPair)
 	{
-		List<MindsCoinDataVO> list =  lastHourCoinPrice.get(currencyPair);
+		Element ele = lastHourCoinPrice.get(currencyPair);
+		List<MindsCoinDataVO> list = (LinkedList<MindsCoinDataVO>) (ele == null ? null : ele.getObjectValue());
 		if(list == null)
 			return null;
 		

@@ -19,7 +19,7 @@ import com.minds.trading.market.vo.MindsChartDataVO;
 public class GetBTCData
 {
     private final static Logger log = LoggerFactory.getLogger(GetBTCData.class);
-    private final static String DEFAULT_PROPERTIES_FILE = "exchange.properties";
+    private final static String DEFAULT_PROPERTIES_FILE = "local.properties";
     private final static String POLONIEX_API_KEY_PROP_NAME = "poloniex.api.key";
     private final static String POLONIEX_API_SECRET_PROP_NAME = "poloniex.api.secret";
 
@@ -49,10 +49,12 @@ public class GetBTCData
 
         MindsExchangeService service = new PoloniexExchangeService(tradingAPIKey, tradingAPISecret);
         Long yesterdayEpochSecond = ZonedDateTime.now(ZoneOffset.UTC).minusDays(1).toEpochSecond();
-        List<MindsChartDataVO> btcDailyChartData = service.returnChartData(PoloniexExchangeService.USDT_BTC_CURRENCY_PAIR, PoloniexExchangeService.DAILY_TIME_PERIOD, yesterdayEpochSecond);
+        /*List<MindsChartDataVO> btcDailyChartData = service.returnChartData(PoloniexExchangeService.USDT_BTC_CURRENCY_PAIR, PoloniexExchangeService.DAILY_TIME_PERIOD, yesterdayEpochSecond);
         log.info(btcDailyChartData.toString());
         log.info(service.returnFeeInfo().toString());
         log.info(service.returnOpenOrders(MindsExchangeService.DGB_BTC_CURRENCY_PAIR).toString());
+        */
+        log.info("price:" + service.returnTicker(PoloniexExchangeService.USDT_BTC_CURRENCY_PAIR));
     }
 
     private Properties loadProperties(String propertiesFileName)

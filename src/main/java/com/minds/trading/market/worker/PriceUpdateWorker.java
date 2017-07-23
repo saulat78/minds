@@ -1,5 +1,6 @@
 package com.minds.trading.market.worker;
 
+import java.math.BigDecimal;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -34,9 +35,9 @@ public class PriceUpdateWorker extends MarketWorker
 	@Override
 	public void doWork()
 	{
-			String currencyPair = "BTC_ETH";
-		   Long yesterdayEpochSecond = ZonedDateTime.now(ZoneOffset.UTC).minusDays(1).toEpochSecond();
-		       MindsCoinDataVO vo =  service.returnTicker(currencyPair);
+			String currencyPair = MindsExchangeService.CURRENT_CURR_PAIR;
+		    //Long yesterdayEpochSecond = ZonedDateTime.now(ZoneOffset.UTC).minusDays(1).toEpochSecond();
+		    MindsCoinDataVO vo =  service.returnTicker(currencyPair);
 	       if(vo != null)
 	    	   this.datastore.updatePrice(currencyPair, vo);
 	}

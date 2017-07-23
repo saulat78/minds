@@ -37,7 +37,7 @@ public class PoloniexPublicAPIClient implements PriceDataAPIClient
         }
         catch (IOException ex)
         {
-            log.error("Call to return ticker API resulted in exception - " + ex.getMessage(), ex);
+            log.error("Call to return ticker API resulted in exception - " + ex.getMessage());
         }
 
         return null;

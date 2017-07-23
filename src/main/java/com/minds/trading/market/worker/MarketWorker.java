@@ -26,7 +26,6 @@ public abstract class MarketWorker
 			    @Override
 			    public void run() 
 			    {
-			        System.out.println(System.currentTimeMillis());
 			        doWork();
 			    }
 			}, 0, interval, TimeUnit.SECONDS);

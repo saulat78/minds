@@ -1,12 +1,16 @@
 package com.minds.trading.market.vo;
 
 import com.google.gson.Gson;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 
-public class MindsCoinDataVO
+public class MindsCoinDataVO implements Serializable
 {
-    public final BigDecimal last;
+
+	private static final long serialVersionUID = -4738873402157465148L;
+	public final BigDecimal last;
     public final BigDecimal lowestAsk;
     public final BigDecimal highestBid;
     public final BigDecimal percentChange;
