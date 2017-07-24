@@ -23,7 +23,7 @@ public class LocalCache<S, K, V> implements Cache<S, K, V> {
 	}
 
 	@Override
-	public Set<S> getSubjects() {
+	public Set<S> getSubjectKeys() {
 		return subjects.keySet();
 	}
 	
