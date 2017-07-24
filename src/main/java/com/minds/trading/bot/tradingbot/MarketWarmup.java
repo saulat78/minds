@@ -8,7 +8,11 @@ public class MarketWarmup {
 
 
 	private MarketManagerImpl market = null;
-
+	//TODO make it singleton
+	public MarketWarmup()
+	{
+		
+	}
 	public void init()
 	{
 		 market = MarketManagerImpl.getInstance();
