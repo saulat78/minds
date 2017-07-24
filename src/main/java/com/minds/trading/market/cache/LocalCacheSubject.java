@@ -2,6 +2,7 @@ package com.minds.trading.market.cache;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 //	Hashmap implementation of CacheSubject
 public class LocalCacheSubject<K, V> implements CacheSubject<K, V> {
@@ -31,6 +32,20 @@ public class LocalCacheSubject<K, V> implements CacheSubject<K, V> {
 		
 		ret += "}";
 		return ret;
+	}
+
+	@Override
+	public Set<K> getKeys() {
+		return map.keySet();
+	}
+
+	@Override
+	public boolean remove(K key) {
+		if (map.containsKey(key)) {
+			map.remove(key);
+			return true;
+		}
+		return false;
 	}
 
 }

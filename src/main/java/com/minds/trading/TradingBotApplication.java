@@ -1,4 +1,4 @@
-package com.minds.trading.bot.tradingbot;
+package com.minds.trading;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

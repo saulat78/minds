@@ -9,5 +9,5 @@ public interface Cache<S, K, V> {
 
 	public boolean addSubject(S subjectKey, CacheSubject<K, V> subject);
 	
-	public Set<S> getSubjects();
+	public Set<S> getSubjectKeys();
 }
