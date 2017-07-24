@@ -28,6 +28,8 @@ public class SimpleBot implements Bot
 		this.perTransactionBuyingQty = perTransactionBuyingQty;
 		this.totalBuyingQty = totalBuyingQty;
 		 df.setRoundingMode(RoundingMode.CEILING);
+		 log.info("Simple Bot started for " + currencyPair+", buyPriceLimit " + this.buyPriceLimit + ",  perTransactionBuyingQty " + perTransactionBuyingQty + ", totalBuyingQty " + totalBuyingQty );
+
 
 	}
 	
