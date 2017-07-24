@@ -29,7 +29,7 @@ public interface MindsExchangeService
     public final static Long TWO_HOUR_TIME_PERIOD = 7_200L;
     public final static Long DAILY_TIME_PERIOD = 86_400L;
     public final static Long LONG_LONG_AGO = 1_439_000_000L;
-    public final static String CURRENT_CURR_PAIR = USDT_LTC_CURRENCY_PAIR;
+    public final static String CURRENT_CURR_PAIR = USDT_ETH_CURRENCY_PAIR;
     
     public List<MindsChartDataVO> returnChartData(String currencyPair, Long periodInSeconds, Long startEpochInSeconds);
     
