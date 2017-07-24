@@ -15,6 +15,7 @@ public class SimpleBot implements Bot
 	private String currencyPair = null;
 	private MindsMarketDatastore datastore = MindsMarketDatastoreImpl.getInstance();
 	private DecimalFormat df = new DecimalFormat("#.####");
+	private DecimalFormat df2 = new DecimalFormat("#.########");
 	private final static Logger log = LoggerFactory.getLogger(SimpleBot.class);
 	private double buyPriceLimit = -1;
 	private int perTransactionBuyingQty = -1;
@@ -28,7 +29,7 @@ public class SimpleBot implements Bot
 		this.perTransactionBuyingQty = perTransactionBuyingQty;
 		this.totalBuyingQty = totalBuyingQty;
 		 df.setRoundingMode(RoundingMode.CEILING);
-		 log.info("Simple Bot started for " + currencyPair+", buyPriceLimit " + this.buyPriceLimit + ",  perTransactionBuyingQty " + perTransactionBuyingQty + ", totalBuyingQty " + totalBuyingQty );
+		 log.info("Simple Bot started for " + (currencyPair)+", buyPriceLimit " + df2.format(this.buyPriceLimit) + ",  perTransactionBuyingQty " + perTransactionBuyingQty + ", totalBuyingQty " + totalBuyingQty );
 
 
 	}
@@ -54,7 +55,7 @@ public class SimpleBot implements Bot
 				 {
 					 double percChangePrevPrice = ((currPrice - prevPrice)/prevPrice)*100;
 					 double percChangeBuyingPrice = ((currPrice - this.buyPriceLimit)/this.buyPriceLimit)*100;
-					 log.info(currencyPair+":" + currPrice + " BuyingPriceChange " + percChangeBuyingPrice + "%  Change=" + df.format(percChangePrevPrice) + "%" );
+					 log.info(currencyPair+":" + df2.format(currPrice) + " BuyingPriceChange " + df.format(percChangeBuyingPrice) + "%  Change=" + df.format(percChangePrevPrice) + "%" );
 				 }
 			}
 		 catch(Exception e)

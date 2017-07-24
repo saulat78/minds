@@ -14,7 +14,7 @@ public class SimpleBotRunner {
 	public static void main(String arg[]) throws Exception
 	{
 		List<Bot> list = new ArrayList<>();
-		SimpleBot sb = new SimpleBot(Constants.CURRENT_CURR_PAIR, 44.50075375, 1,5);
+		SimpleBot sb = new SimpleBot(Constants.CURRENT_CURR_PAIR, 0.00000770, 1,5);
 		BotManager bm = new BotManager();
 		list.add(sb);
 		bm.startBots(list);
