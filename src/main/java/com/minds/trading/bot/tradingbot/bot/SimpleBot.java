@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.minds.trading.bot.tradingbot.wallet.MindsWallet;
 import com.minds.trading.market.MindsMarketDatastore;
 import com.minds.trading.market.MindsMarketDatastoreImpl;
 
@@ -56,6 +57,7 @@ public class SimpleBot implements Bot
 					 double percChangePrevPrice = ((currPrice - prevPrice)/prevPrice)*100;
 					 double percChangeBuyingPrice = ((currPrice - this.buyPriceLimit)/this.buyPriceLimit)*100;
 					 log.info(currencyPair+":" + df2.format(currPrice) + " BuyingPriceChange " + df.format(percChangeBuyingPrice) + "%  Change=" + df.format(percChangePrevPrice) + "%" );
+					 buy(currPrice);
 				 }
 			}
 		 catch(Exception e)
@@ -70,9 +72,11 @@ public class SimpleBot implements Bot
 		if(currentPrice <= this.buyPriceLimit)
 		{
 			double totalbuyingPrice = this.perTransactionBuyingQty * currentPrice;
-			double minSellingPrice =  (totalbuyingPrice * this.feePercent) /100;
-			log.info("SimpleBot bought " + this.perTransactionBuyingQty + " each for " +  currentPrice + " total amt " + totalbuyingPrice + " selling price is " + minSellingPrice );
-			//TODO add all the bought coin into a list and iterate over it in the sell method to check what to sell
+			double minSellingPrice =  ((totalbuyingPrice * this.feePercent) /100) + totalbuyingPrice;
+			log.info("SimpleBot bought " + this.perTransactionBuyingQty + " each for " +  df2.format(currentPrice) + " total amt " + df2.format(totalbuyingPrice) + " selling price is " + df2.format(minSellingPrice));
+			MindsWallet wallet = MindsWallet.getInstance();
+			wallet.update(currencyPair, this.perTransactionBuyingQty, totalbuyingPrice);
+			log.info(wallet.toString());
 		}
 	}
 	

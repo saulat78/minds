@@ -88,7 +88,7 @@ public class PoloniexExchangeService implements MindsExchangeService
         {
             String tickerData = publicClient.returnTicker();
             tickerResult = mapper.mapTickerForCurrency(currencyPair, tickerData);
-            log.trace("Retrieved and mapped {} ticker in {} ms", currencyPair, System.currentTimeMillis() - start);
+            log.info("Retrieved and mapped {} ticker in {} ms", currencyPair, System.currentTimeMillis() - start);
         }
         catch (Exception ex)
         {
