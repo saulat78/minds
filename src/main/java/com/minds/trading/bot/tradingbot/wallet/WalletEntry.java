@@ -7,13 +7,13 @@ public class WalletEntry
 	private DecimalFormat df2 = new DecimalFormat("#.########");
 	private String currencyPair;
 	private int quantity;
-	private double averagePrice;
+	private double totalPrice;
 	
-	public WalletEntry(String currencyPair, int quantity, double averagePrice) {
+	public WalletEntry(String currencyPair, int quantity, double totalPrice) {
 		super();
 		this.currencyPair = currencyPair;
 		this.quantity = quantity;
-		this.averagePrice = averagePrice;
+		this.totalPrice = totalPrice;
 	}
 	public String getCurrencyPair() {
 		return currencyPair;
@@ -27,18 +27,19 @@ public class WalletEntry
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public double getAveragePrice() {
-		return averagePrice;
+	
+	public double getTotalPrice() {
+		return totalPrice;
 	}
-	public void setAveragePrice(double averagePrice) {
-		this.averagePrice = averagePrice;
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(averagePrice);
+		temp = Double.doubleToLongBits(totalPrice);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((currencyPair == null) ? 0 : currencyPair.hashCode());
 		result = prime * result + quantity;
@@ -53,7 +54,7 @@ public class WalletEntry
 		if (getClass() != obj.getClass())
 			return false;
 		WalletEntry other = (WalletEntry) obj;
-		if (Double.doubleToLongBits(averagePrice) != Double.doubleToLongBits(other.averagePrice))
+		if (Double.doubleToLongBits(totalPrice) != Double.doubleToLongBits(other.totalPrice))
 			return false;
 		if (currencyPair == null) {
 			if (other.currencyPair != null)
@@ -66,8 +67,9 @@ public class WalletEntry
 	}
 	@Override
 	public String toString() {
-		return "WalletEntry [currencyPair=" + currencyPair + ", quantity=" + quantity + ", averagePrice=" + df2.format(averagePrice)
-				+ "]";
+		double avgPrice = getTotalPrice()/getQuantity();
+		return "WalletEntry [currencyPair=" + currencyPair + ", quantity=" + quantity + ", totalPrice=" + df2.format(totalPrice)
+				+ " avgPrice="+  df2.format(avgPrice)+"]";
 	}
 	
 	

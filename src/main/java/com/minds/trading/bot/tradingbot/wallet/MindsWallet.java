@@ -50,8 +50,7 @@ public class MindsWallet
 		else
 		{
 			entry.setQuantity(entry.getQuantity() + quantity);
-			double avgPrice = (entry.getAveragePrice() + buyingPrice)/entry.getQuantity();
-			entry.setAveragePrice(avgPrice);
+			entry.setTotalPrice(entry.getTotalPrice() + buyingPrice);
 		}
 		return update(currencyPair, entry);
 	}
