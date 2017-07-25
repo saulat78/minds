@@ -8,10 +8,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 
@@ -31,16 +34,21 @@ public class HTTPClient
             }
         }
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(post);
+      //  HttpClient httpClient = HttpClientBuilder.create().build();
+      //  HttpResponse response = httpClient.execute(post);
 
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = httpClient.execute(post);
+        
         HttpEntity entity = response.getEntity();
+        String toReturn = null;
         if (entity != null)
         {
-            return EntityUtils.toString(entity);
+            toReturn= EntityUtils.toString(entity);
 
         }
-        return null;
+        httpClient.close();
+        return toReturn;
     }
 
     public String getHttp(String url, List<NameValuePair> headers) throws IOException
@@ -55,15 +63,19 @@ public class HTTPClient
             }
         }
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(request);
+       // HttpClient httpClient = HttpClientBuilder.create().build();
+        //HttpResponse response = httpClient.execute(request);
 
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = httpClient.execute(request);
+        String toReturn = null;
         HttpEntity entity = response.getEntity();
         if (entity != null)
         {
-            return EntityUtils.toString(entity);
+        	 toReturn=  EntityUtils.toString(entity);
 
         }
-        return null;
+        httpClient.close();
+        return toReturn;
     }
 }
