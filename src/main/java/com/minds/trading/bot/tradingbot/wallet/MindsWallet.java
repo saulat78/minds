@@ -39,6 +39,9 @@ public class MindsWallet
 	 */
 	public WalletEntry update(String currencyPair, int quantity, double buyingPrice)
 	{
+		if(currencyPair == null || quantity <=0 || buyingPrice <= 0)
+			return null;
+			
 		WalletEntry entry = getEntry(currencyPair);
 		if(entry == null)
 		{
@@ -47,7 +50,7 @@ public class MindsWallet
 		else
 		{
 			entry.setQuantity(entry.getQuantity() + quantity);
-			double avgPrice = (entry.getAveragePrice() + buyingPrice)/quantity;
+			double avgPrice = (entry.getAveragePrice() + buyingPrice)/entry.getQuantity();
 			entry.setAveragePrice(avgPrice);
 		}
 		return update(currencyPair, entry);
