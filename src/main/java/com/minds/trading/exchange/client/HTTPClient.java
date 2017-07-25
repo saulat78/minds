@@ -47,6 +47,7 @@ public class HTTPClient
             toReturn= EntityUtils.toString(entity);
 
         }
+        response.close();
         httpClient.close();
         return toReturn;
     }
@@ -75,6 +76,7 @@ public class HTTPClient
         	 toReturn=  EntityUtils.toString(entity);
 
         }
+        response.close();
         httpClient.close();
         return toReturn;
     }
