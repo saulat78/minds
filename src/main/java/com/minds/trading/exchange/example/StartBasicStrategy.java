@@ -1,6 +1,5 @@
 package com.minds.trading.exchange.example;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 

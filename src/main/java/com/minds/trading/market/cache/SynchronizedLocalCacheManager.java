@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SynchronizedLocalCacheManager<S, K, V> implements CacheManager<S, K, V> {
 
-	 private final static Logger log = LoggerFactory.getLogger(SynchronizedLocalCacheManager.class);
+	private final static Logger log = LoggerFactory.getLogger(SynchronizedLocalCacheManager.class);
 
-	Cache<S, K, V> localCache = null;
-	CacheInvalidationStrategy<S, K, V> dateTimeInvalidationStrategy = null;
+	private Cache<S, K, V> localCache = null;
+	private CacheInvalidationStrategy<S, K, V> dateTimeInvalidationStrategy = null;
 
 	@Override
 	public Cache<S, K, V> getCache() {
@@ -53,5 +53,16 @@ public class SynchronizedLocalCacheManager<S, K, V> implements CacheManager<S, K
 				}
 			}
 		}).start();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private static CacheManager localStaticInstance = null;
+	//	Temporary static wrapper added to support non-spring-beans
+	@SuppressWarnings("rawtypes")
+	public static CacheManager getLocalInstance() {
+		if (localStaticInstance == null) {
+			localStaticInstance = new SynchronizedLocalCacheManager();
+		}
+		return localStaticInstance;
 	}
 }

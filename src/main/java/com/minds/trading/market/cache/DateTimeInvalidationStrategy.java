@@ -23,7 +23,7 @@ public class DateTimeInvalidationStrategy<S, K, V> implements
 					Date dateKey = (Date) key;
 					//	Current date minus 10 minutes
 					Date invalidationPoint = new Date();
-					Long invalidationEpoch = invalidationPoint.getTime() - 600000;
+					Long invalidationEpoch = invalidationPoint.getTime() - 60*60*1000; //	60 minutes/hour, 60 seconds/minute, 1000ms/second
 					invalidationPoint.setTime(invalidationEpoch);
 					//	If this entry has expired...
 					if (dateKey.before(invalidationPoint)) {

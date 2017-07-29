@@ -10,8 +10,11 @@ public class LocalCache<S, K, V> implements Cache<S, K, V> {
 	private Map<S, CacheSubject<K, V>> subjects = new HashMap<S, CacheSubject<K, V>>();
 	
 	@Override
-	public CacheSubject<K, V> forSubject(S subject) {
-		return subjects.get(subject);
+	public CacheSubject<K, V> forSubject(S subjectKey) {
+		if (subjects.get(subjectKey) == null)
+			addSubject(subjectKey, new LocalCacheSubject<K, V>());
+		return subjects.get(subjectKey);
+
 	}
 
 	@Override
