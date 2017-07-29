@@ -24,6 +24,8 @@ public class StartBasicStrategy
 		 MindsMarketDatastore datastore = MindsMarketDatastoreImpl.getInstance();
 		 DecimalFormat df = new DecimalFormat("#.####");
 		 df.setRoundingMode(RoundingMode.CEILING);
+		 log.info(currencyPair +" Current Price : " + datastore.getCurrentPrice(currencyPair));
+		 Thread.sleep(2000);
 		 while(true)
 		 {
 			 double prevPrice = datastore.getCurrentPrice(currencyPair).doubleValue();

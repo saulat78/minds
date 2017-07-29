@@ -1,15 +1,7 @@
 package com.minds.trading.market.worker;
 
-import java.math.BigDecimal;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.List;
-
-import com.minds.trading.exchange.ExchangeFactory;
 import com.minds.trading.exchange.MindsExchangeService;
-import com.minds.trading.exchange.poloniex.PoloniexExchangeService;
 import com.minds.trading.market.MindsMarketDatastore;
-import com.minds.trading.market.vo.MindsChartDataVO;
 import com.minds.trading.market.vo.MindsCoinDataVO;
 
 public class PriceUpdateWorker extends MarketWorker
